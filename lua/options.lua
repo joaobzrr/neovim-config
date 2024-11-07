@@ -62,4 +62,6 @@ vim.opt.scrolloff = 10
 -- Set GUI font
 vim.opt.guifont = 'Cascadia Mono:h10'
 
+vim.opt.fillchars = vim.opt.fillchars + 'diff:╱'
+
 -- vim: ts=2 sts=2 sw=2 et
