@@ -6,9 +6,13 @@ return {
       mellifluous = {
         bg_contrast = 'hard',
       },
+      styles = {
+        comments = { italic = false },
+      },
     }
   end,
   init = function()
     vim.cmd.colorscheme 'mellifluous'
+    vim.api.nvim_set_hl(0, 'Todo', {})
   end,
 }
