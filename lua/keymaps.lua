@@ -1,6 +1,9 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- Save current buffer
+vim.keymap.set('n', '<leader>w', ':w<CR>')
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -41,7 +44,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
--- Prevent copying of highlighted text while pasting
+-- Prevent copying of selected text while pasting
 vim.keymap.set('x', '<leader>p', '"_dP')
 
 -- [[ Basic Autocommands ]]

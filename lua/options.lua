@@ -69,4 +69,6 @@ vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.softtabstop = 4 -- Number of spaces that a <Tab> counts for while editing
 vim.opt.expandtab = true -- Use spaces instead of tabs
 
+vim.opt.cinoptions = 'l1'
+
 -- vim: ts=2 sts=2 sw=2 et
