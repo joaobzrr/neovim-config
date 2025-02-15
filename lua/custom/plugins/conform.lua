@@ -39,6 +39,7 @@ return {
       javascriptreact = { 'prettierd' },
       typescript = { 'prettierd' },
       typescriptreact = { 'prettierd' },
+      markdown = { 'prettierd' },
       css = { 'css' },
       scss = { 'scss' },
       html = { 'html' },

@@ -44,8 +44,15 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
--- Prevent copying of selected text while pasting
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+-- Paste over selected text without copying
 vim.keymap.set('x', '<leader>p', '"_dP')
+
+-- Delete without copying
+vim.keymap.set('n', '<leader>d', '"_d')
+vim.keymap.set('v', '<leader>d', '"_d')
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
