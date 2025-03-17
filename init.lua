@@ -94,7 +94,7 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
 -- Set language
-vim.cmd 'language en_US'
+-- vim.cmd 'language en_US'
 
 -- [[ Setting options ]]
 require 'options'
