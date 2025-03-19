@@ -167,6 +167,19 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         gopls = {},
+        templ = {},
+        html = { filetypes = { 'html', 'templ' } },
+        htmx = { filetypes = { 'html', 'templ' } },
+        tailwindcss = {
+          filetypes = { 'templ', 'javascript', 'typescript' },
+          settings = {
+            tailwindCSS = {
+              includeLanguages = {
+                templ = 'html',
+              },
+            },
+          },
+        },
         -- clangd = {},
         -- pyright = {},
         -- rust_analyzer = {},

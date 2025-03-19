@@ -47,7 +47,11 @@ return {
       jsonc = { 'json' },
       yaml = { 'yaml' },
       go = { 'gofmt' },
-      -- Conform can also run multiple formatters sequentially
+      templ = {
+        'gofumpt',
+        'templ',
+        'injected',
+      },
       -- python = { "isort", "black" },
       --
       -- You can use a sub-list to tell conform to run *until* a formatter
