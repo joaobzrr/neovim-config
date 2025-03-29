@@ -77,6 +77,7 @@ return {
         -- },
         pickers = {
           find_files = {
+            hidden = true,
             mappings = {
               i = {
                 ['<c-enter>'] = open_directory_in_oil,
