@@ -19,9 +19,7 @@ return {
             colors = function(colors)
               local color = require 'mellifluous.color'
               local green = color.new_from_hsl { h = 130, s = 30, l = 70 }
-
               return {
-                other_keywords = colors.main_keywords,
                 strings = green,
                 green = green,
               }
@@ -30,6 +28,7 @@ return {
         },
         highlight_overrides = {
           dark = function(hl, colors)
+            hl.set('Keyword', { fg = colors.red })
             hl.set('CursorLine', { bg = colors.bg })
             hl.set('NormalFloat', { fg = colors.fg, bg = colors.bg })
             hl.set('FloatBorder', { fg = colors.fg4, bg = colors.bg })
