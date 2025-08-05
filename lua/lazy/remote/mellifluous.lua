@@ -33,6 +33,7 @@ return {
             hl.set('CursorLine', { bg = colors.bg })
             hl.set('NormalFloat', { fg = colors.fg4, bg = colors.bg })
             hl.set('FloatBorder', { fg = colors.fg4, bg = colors.bg })
+            hl.set('StatusLine', { fg = '#ff0000', bg = '#00ff00' })
           end,
         },
       },

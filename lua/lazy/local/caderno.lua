@@ -1,6 +1,6 @@
 return {
   {
-    dir = '~/plugins/caderno.nvim/',
+    'local/caderno',
     config = function()
       require 'caderno'
     end,
