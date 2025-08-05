@@ -43,15 +43,16 @@ return {
             local sl_fg_blue = colors.blue:saturated(20).hex
 
             local sl_bg = colors.bg2.hex
-            local sl_bg_gray = colors.bg3:lightened(5).hex
+            local sl_bg_gray = colors.bg4:lightened(5).hex
+            local sl_bg_gray2 = colors.bg3:lightened(2).hex
+            local sl_bg_gray3 = colors.bg2.hex
             local sl_bg_red = colors.red:darkened(30):saturated(20).hex
-            local sl_bg_blue = colors.blue:darkened(40):saturated(20).hex
             local sl_bg_green = colors.green:darkened(40):saturated(20).hex
             local sl_bg_purple = colors.purple:darkened(30):saturated(20).hex
 
-            hl.set('LuaLineA_ModeNormal', { fg = sl_fg, bg = sl_bg_blue, bold = true })
-            hl.set('LuaLineB_ModeNormal', { fg = sl_fg, bg = sl_bg_gray })
-            hl.set('LuaLineC_ModeNormal', { fg = sl_fg, bg = colors.bg2.hex })
+            hl.set('LuaLineA_ModeNormal', { fg = sl_fg, bg = sl_bg_gray, bold = true })
+            hl.set('LuaLineB_ModeNormal', { fg = sl_fg, bg = sl_bg_gray2 })
+            hl.set('LuaLineC_ModeNormal', { fg = sl_fg, bg = sl_bg_gray3 })
             hl.set('LuaLineA_ModeInsert', { fg = sl_fg, bg = sl_bg_green, bold = true })
             hl.set('LuaLineA_ModeVisual', { fg = sl_fg, bg = sl_bg_purple, bold = true })
             hl.set('LuaLineA_ModeReplace', { fg = sl_fg, bg = sl_bg_red, bold = true })
