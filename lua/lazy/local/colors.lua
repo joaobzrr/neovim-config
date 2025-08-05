@@ -1,1 +1,0 @@
-return { 'local/colors', opts = {} }
