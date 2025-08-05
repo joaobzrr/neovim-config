@@ -126,5 +126,20 @@ vim.filetype.add {
   },
 }
 
+function DumpColors()
+  local groups = vim.fn.getcompletion('', 'highlight')
+
+  print 'Highlight groups and their colors:'
+
+  for _, group in ipairs(groups) do
+    local ok, hl = pcall(vim.api.nvim_get_hl_by_name, group, true)
+    if ok and hl then
+      local fg = hl.foreground and string.format('#%06x', hl.foreground) or 'none'
+      local bg = hl.background and string.format('#%06x', hl.background) or 'none'
+      print(string.format('%-30s fg=%-8s bg=%s', group, fg, bg))
+    end
+  end
+end
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

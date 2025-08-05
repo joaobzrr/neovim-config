@@ -3,6 +3,9 @@
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+-- Background
+---vim.opt.background = 'light'
+
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -60,7 +63,7 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 -- Set GUI font
-vim.opt.guifont = 'JetBrainsMonoNL NFM:h10'
+vim.opt.guifont = 'JetBrainsMonoNL NFM:h11'
 
 vim.opt.fillchars = vim.opt.fillchars + 'diff:╱'
 
