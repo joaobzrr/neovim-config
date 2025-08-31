@@ -46,5 +46,13 @@ require('lazy').setup({
   },
 })
 
+if has 'win32' then
+  vim.lsp.config['jails'] = {
+    cmd = { '/opt/Jails/bin/jails' },
+    filetypes = { 'jai ' },
+    root_markers = { '.git' },
+  }
+end
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
