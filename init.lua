@@ -230,6 +230,9 @@ require('mellifluous').setup({
     },
     highlight_overrides = {
       dark = function(hl, colors)
+        hl.set('StatusLine',   { bg = nil })
+        hl.set('StatusLineNC', { bg = nil })
+
         hl.set('MiniPickNormal', { bg = colors.bg })
         hl.set('MiniPickBorder', { fg = colors.bg4 })
       end,
@@ -242,13 +245,11 @@ require('mellifluous').setup({
 
 vim.cmd.colorscheme('mellifluous')
 
-vim.api.nvim_set_hl(0, 'statusline', { bg = nil })
-
-vim.api.nvim_set_hl(0, 'DiffDelete', { fg = '#2b2b2b' })
-vim.api.nvim_set_hl(0, 'DiffviewDiffAdd', { bg = '#152112' })
-vim.api.nvim_set_hl(0, 'DiffviewDiffTextGreen', { bg = '#2a4125' })
-vim.api.nvim_set_hl(0, 'DiffviewDiffDelete', { bg = '#24150f' })
-vim.api.nvim_set_hl(0, 'DiffviewDiffTextRed', { bg = '#492c1d' })
-
+-- Diff colors
+vim.api.nvim_set_hl(0, 'DiffviewDiffAdd', { bg = '#171e16' }) -- Added line
+vim.api.nvim_set_hl(0, 'DiffviewDiffTextGreen', { bg = '#0e2a0a' }) -- Added text
+vim.api.nvim_set_hl(0, 'DiffviewDiffDelete', { bg = '#1e1916' }) -- Deleted line
+vim.api.nvim_set_hl(0, 'DiffviewDiffTextRed', { bg = '#2a160a' }) -- Deleted text
+vim.api.nvim_set_hl(0, 'DiffDelete', { fg = '#2b2b2b' }) -- Filler color
 
 -- vim: ts=2 sts=2 sw=2 et
