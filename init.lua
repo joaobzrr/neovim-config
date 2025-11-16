@@ -133,13 +133,14 @@ vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format) -- Format buffer
 -- PACKAGES
 
 vim.pack.add({
-  "https://github.com/mason-org/mason.nvim",
-  "https://github.com/nvim-treesitter/nvim-treesitter",
-  "https://github.com/neovim/nvim-lspconfig",
-  "https://github.com/nvim-mini/mini.pick",
-  "https://github.com/stevearc/oil.nvim",
-  "https://github.com/ramojus/mellifluous.nvim",
-  "https://github.com/sindrets/diffview.nvim",
+  'https://github.com/mason-org/mason.nvim',
+  'https://github.com/nvim-treesitter/nvim-treesitter',
+  'https://github.com/neovim/nvim-lspconfig',
+  'https://github.com/nvim-mini/mini.pick',
+  'https://github.com/stevearc/oil.nvim',
+  'https://github.com/ramojus/mellifluous.nvim',
+  'https://github.com/sindrets/diffview.nvim',
+  'https://github.com/rluba/jai.vim'
 })
 
 -- Mason
@@ -230,7 +231,7 @@ require('mellifluous').setup({
     },
     highlight_overrides = {
       dark = function(hl, colors)
-        hl.set('StatusLine',   { bg = nil })
+        hl.set('StatusLine', { bg = nil })
         hl.set('StatusLineNC', { bg = nil })
 
         hl.set('MiniPickNormal', { bg = colors.bg })
@@ -246,10 +247,10 @@ require('mellifluous').setup({
 vim.cmd.colorscheme('mellifluous')
 
 -- Diff colors
-vim.api.nvim_set_hl(0, 'DiffviewDiffAdd', { bg = '#171e16' }) -- Added line
+vim.api.nvim_set_hl(0, 'DiffviewDiffAdd', { bg = '#171e16' })       -- Added line
 vim.api.nvim_set_hl(0, 'DiffviewDiffTextGreen', { bg = '#0e2a0a' }) -- Added text
-vim.api.nvim_set_hl(0, 'DiffviewDiffDelete', { bg = '#1e1916' }) -- Deleted line
-vim.api.nvim_set_hl(0, 'DiffviewDiffTextRed', { bg = '#2a160a' }) -- Deleted text
-vim.api.nvim_set_hl(0, 'DiffDelete', { fg = '#2b2b2b' }) -- Filler color
+vim.api.nvim_set_hl(0, 'DiffviewDiffDelete', { bg = '#1e1916' })    -- Deleted line
+vim.api.nvim_set_hl(0, 'DiffviewDiffTextRed', { bg = '#2a160a' })   -- Deleted text
+vim.api.nvim_set_hl(0, 'DiffDelete', { fg = '#2b2b2b' })            -- Filler color
 
 -- vim: ts=2 sts=2 sw=2 et
