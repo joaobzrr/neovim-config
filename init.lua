@@ -5,13 +5,13 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Basics
-vim.opt.number = true         -- Absolute line numbers
+vim.opt.number = true -- Absolute line numbers
 vim.opt.relativenumber = true -- Relative numbers for motion
-vim.opt.cursorline = true     -- Highlight current line
-vim.opt.signcolumn = 'yes'    -- Prevent text shifting when signs appear
-vim.opt.scrolloff = 10        -- Keep 10 lines of padding when scrolling
-vim.opt.mouse = 'a'           -- Enable mouse in all modes
-vim.opt.showmode = false      -- Mode shown by statusline instead
+vim.opt.cursorline = true -- Highlight current line
+vim.opt.signcolumn = 'yes' -- Prevent text shifting when signs appear
+vim.opt.scrolloff = 10 -- Keep 10 lines of padding when scrolling
+vim.opt.mouse = 'a' -- Enable mouse in all modes
+vim.opt.showmode = false -- Mode shown by statusline instead
 vim.opt.winborder = 'rounded' -- Rounded floating window borders
 
 -- Indentation
