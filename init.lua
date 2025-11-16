@@ -53,7 +53,7 @@ vim.opt.guifont = 'JetBrainsMonoNL NFM:h10'
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>') -- Save and reload config
 
 -- Basic editing
-vim.keymap.set('n', '<leader>w', ':w<CR>')          -- Save file
+vim.keymap.set('n', '<leader>w', ':w<CR>') -- Save file
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- Clear search highlight
 
 -- Quickfix navigation
