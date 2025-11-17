@@ -5,13 +5,13 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Basics
-vim.opt.number = true -- Absolute line numbers
+vim.opt.number = true         -- Absolute line numbers
 vim.opt.relativenumber = true -- Relative numbers for motion
-vim.opt.cursorline = true -- Highlight current line
-vim.opt.signcolumn = 'yes' -- Prevent text shifting when signs appear
-vim.opt.scrolloff = 10 -- Keep 10 lines of padding when scrolling
-vim.opt.mouse = 'a' -- Enable mouse in all modes
-vim.opt.showmode = false -- Mode shown by statusline instead
+vim.opt.cursorline = true     -- Highlight current line
+vim.opt.signcolumn = 'yes'    -- Prevent text shifting when signs appear
+vim.opt.scrolloff = 10        -- Keep 10 lines of padding when scrolling
+vim.opt.mouse = 'a'           -- Enable mouse in all modes
+vim.opt.showmode = false      -- Mode shown by statusline instead
 vim.opt.winborder = 'rounded' -- Rounded floating window borders
 
 -- Indentation
@@ -53,7 +53,7 @@ vim.opt.guifont = 'JetBrainsMonoNL NFM:h10'
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>') -- Save and reload config
 
 -- Basic editing
-vim.keymap.set('n', '<leader>w', ':w<CR>') -- Save file
+vim.keymap.set('n', '<leader>w', ':w<CR>')          -- Save file
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- Clear search highlight
 
 -- Quickfix navigation
@@ -156,10 +156,164 @@ require('nvim-treesitter.configs').setup({
 })
 
 -- MiniPick
-require('mini.pick').setup()
+require('mini.pick').setup({
+  window = {
+    config = function()
+      local has_tabline = vim.o.showtabline == 2 or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)
+      local has_statusline = vim.o.laststatus > 0
+
+      local max_height = vim.o.lines - vim.o.cmdheight - (has_tabline and 1 or 0) - (has_statusline and 1 or 0)
+      local max_width  = vim.o.columns
+
+      local height = math.max(math.floor(0.2 * vim.o.lines), 8)
+      return {
+        relative = 'editor',
+        anchor = 'SW',
+        width = max_width,
+        height = height,
+        row = max_height,
+        col = 0,
+        border = 'rounded'
+      }
+    end
+  }
+})
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
-vim.keymap.set('n', '<leader>g', ':Pick grep_live<CR>')
+
+local function truncate_path(path, max_width)
+  max_width = max_width or 40
+  if #path <= max_width then
+    return path
+  end
+
+  local parts = vim.split(path, "/")
+  local filename = parts[#parts]
+  if #filename + 4 >= max_width then
+    -- Worst case: only show the end of the filename
+    return "..." .. filename:sub(-(max_width - 3))
+  end
+
+  -- Start building from the right
+  local tail = filename
+  local i = #parts - 1
+
+  -- Add parent directories until we fill up
+  while i > 0 do
+    local next_tail = parts[i] .. "/" .. tail
+    if #next_tail + 4 > max_width then
+      break
+    end
+    tail = next_tail
+    i = i - 1
+  end
+
+  -- If we used all dirs, just return tail
+  if i == 0 then
+    return tail
+  end
+
+  -- Otherwise show one or two leading dirs + ellipsis
+  local head = parts[1]
+  if #head + 4 + #tail <= max_width then
+    return head .. "/.../" .. tail
+  end
+
+  -- If even that doesn’t fit, just ellipsize beginning
+  return ".../" .. tail
+end
+
+local function live_grep()
+  local cwd = vim.fn.getcwd()
+  local set_items_opts = { do_match = false, querytick = MiniPick.get_querytick() }
+  local spawn_opts = { cwd = cwd }
+
+  local match = function(_, _, query)
+    pcall(vim.loop.process_kill, process)
+    if MiniPick.get_querytick() == set_items_opts.querytick then return end
+    if #query == 0 then return MiniPick.set_picker_items({}, set_items_opts) end
+
+    set_items_opts.querytick = MiniPick.get_querytick()
+    local command = {
+      'rg',
+      '--column',
+      '--line-number',
+      '--no-heading',
+      '--field-match-separator',
+      '|',
+      '--no-follow',
+      '--color=never',
+      '--',
+      table.concat(query)
+    }
+
+    process = MiniPick.set_picker_items_from_cli(command, {
+      set_items_opts = set_items_opts,
+      spawn_opts = spawn_opts
+    })
+  end
+
+  local show = function(buf_id, items, query)
+    local parsed = {}
+    local max_path, max_row, max_col = 0, 0, 0
+
+    for _, item in ipairs(items) do
+      local path, row, col, text = string.match(item, '^([^|]*)|([^|]*)|([^|]*)|(.*)$')
+
+      local relpath = truncate_path(vim.fn.fnamemodify(path, ':.'), 40)
+
+      row = tostring(row)
+      col = tostring(col)
+
+      text = text:gsub('^%s*(.-)%s*$', '%1')
+
+      max_path = math.max(max_path, #relpath)
+      max_row = math.max(max_row, #row)
+      max_col = math.max(max_col, #col)
+
+      table.insert(parsed, {
+        path = relpath,
+        row = row,
+        col = col,
+        text = text,
+      })
+    end
+
+    local aligned = {}
+    for _, entry in ipairs(parsed) do
+      local path = entry.path .. string.rep(' ', max_path - #entry.path)
+      local row  = string.rep(' ', max_row - #entry.row) .. entry.row
+      local col  = string.rep(' ', max_col - #entry.col) .. entry.col
+
+      table.insert(aligned, string.format('%s │ %s │ %s │ %s', path, row, col, entry.text))
+    end
+
+    MiniPick.default_show(buf_id, aligned, query, { show_icons = false })
+  end
+
+  local choose = function(item)
+    local path, row, column = string.match(item, '^([^|]*)|([^|]*)|([^|]*)|.*$')
+    local chosen = {
+      path = path,
+      lnum = tonumber(row),
+      col = tonumber(column),
+    }
+    MiniPick.default_choose(chosen)
+  end
+
+  return MiniPick.start({
+    source = {
+      name = 'Live Grep',
+      items = {},
+      match = match,
+      show = show,
+      choose = choose,
+      choose_marked = MiniPick.default_choose_marked
+    }
+  })
+end
+
+vim.keymap.set('n', '<leader>g', live_grep)
 
 local function get_jai_path()
   local jai_path = os.getenv('JAI_PATH')
@@ -231,11 +385,14 @@ require('mellifluous').setup({
     },
     highlight_overrides = {
       dark = function(hl, colors)
+        hl.set('Keyword', { fg = colors.red })
+
         hl.set('StatusLine', { bg = nil })
         hl.set('StatusLineNC', { bg = nil })
 
         hl.set('MiniPickNormal', { bg = colors.bg })
         hl.set('MiniPickBorder', { fg = colors.bg4 })
+        hl.set('MiniPickBorderBusy', { fg = colors.bg4 })
       end,
     },
   },
@@ -247,10 +404,10 @@ require('mellifluous').setup({
 vim.cmd.colorscheme('mellifluous')
 
 -- Diff colors
-vim.api.nvim_set_hl(0, 'DiffviewDiffAdd', { bg = '#171e16' })       -- Added line
-vim.api.nvim_set_hl(0, 'DiffviewDiffTextGreen', { bg = '#0e2a0a' }) -- Added text
-vim.api.nvim_set_hl(0, 'DiffviewDiffDelete', { bg = '#1e1916' })    -- Deleted line
-vim.api.nvim_set_hl(0, 'DiffviewDiffTextRed', { bg = '#2a160a' })   -- Deleted text
+vim.api.nvim_set_hl(0, 'DiffviewDiffAdd', { bg = '#1d221d' })       -- Added line
+vim.api.nvim_set_hl(0, 'DiffviewDiffTextGreen', { bg = '#173619' }) -- Added text
+vim.api.nvim_set_hl(0, 'DiffviewDiffDelete', { bg = '#231b1a' })    -- Deleted line
+vim.api.nvim_set_hl(0, 'DiffviewDiffTextRed', { bg = '#390e0e' })   -- Deleted text
 vim.api.nvim_set_hl(0, 'DiffDelete', { fg = '#2b2b2b' })            -- Filler color
 
 -- vim: ts=2 sts=2 sw=2 et
