@@ -50,7 +50,15 @@ vim.opt.guifont = 'JetBrainsMonoNL NFM:h10'
 
 -- GENERAL KEYMAPS
 
-vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>') -- Save and reload config
+-- Save and reload config
+vim.keymap.set('n', '<leader>o', function()
+  local name = vim.api.nvim_buf_get_name(0)
+  if name:sub(-4) == ".lua" then
+    vim.cmd("update | source %")
+  else
+    vim.notify("Not a Lua file", vim.log.levels.WARN)
+  end
+end)
 
 -- Basic editing
 vim.keymap.set('n', '<leader>w', ':w<CR>')          -- Save file
