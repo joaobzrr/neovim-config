@@ -33,15 +33,12 @@ local function truncate_path(path, max_width)
     local parts = vim.split(path, "/")
     local filename = parts[#parts]
     if #filename + 4 >= max_width then
-        -- Worst case: only show the end of the filename
         return "..." .. filename:sub(-(max_width - 3))
     end
 
-    -- Start building from the right
     local tail = filename
     local i = #parts - 1
 
-    -- Add parent directories until we fill up
     while i > 0 do
         local next_tail = parts[i] .. "/" .. tail
         if #next_tail + 4 > max_width then
@@ -51,24 +48,22 @@ local function truncate_path(path, max_width)
         i = i - 1
     end
 
-    -- If we used all dirs, just return tail
     if i == 0 then
         return tail
     end
 
-    -- Otherwise show one or two leading dirs + ellipsis
     local head = parts[1]
     if #head + 4 + #tail <= max_width then
         return head .. "/.../" .. tail
     end
 
-    -- If even that doesn’t fit, just ellipsize beginning
     return ".../" .. tail
 end
 
 MiniPick.registry.nice_grep = function(local_opts)
     local_opts = local_opts or {}
     local cwd = local_opts.cwd or vim.fn.getcwd()
+    print('cwd: ' .. cwd)
 
     local set_items_opts = { do_match = false, querytick = MiniPick.get_querytick() }
     local spawn_opts = { cwd = cwd }
@@ -138,22 +133,18 @@ MiniPick.registry.nice_grep = function(local_opts)
 
     local choose = function(item)
         local path, row, column = string.match(item, '^([^|]*)|([^|]*)|([^|]*)|.*$')
-        local chosen = {
-            path = path,
-            lnum = tonumber(row),
-            col = tonumber(column),
-        }
+        local chosen = { path = path, lnum = tonumber(row), col = tonumber(column) }
         MiniPick.default_choose(chosen)
     end
 
     return MiniPick.start({
         source = {
+            cwd = cwd,
             name = local_opts.name,
             items = {},
             match = match,
             show = show,
             choose = choose,
-            choose_marked = MiniPick.default_choose_marked
         }
     })
 end

@@ -3,6 +3,9 @@ vim.pack.add({ 'https://github.com/ramojus/mellifluous.nvim' })
 require('mellifluous').setup({
   mellifluous = {
     bg_contrast = 'hard',
+    styles = {
+        comments = { italic = false },
+    },
     color_overrides = {
       dark = {
         colors = function(_)
@@ -17,16 +20,13 @@ require('mellifluous').setup({
         hl.set('Keyword', { fg = colors.red })
 
         hl.set('StatusLine', { bg = nil })
-        hl.set('StatusLineNC', { bg = nil })
+        hl.set('StatusLineNC', { fg = colors.fg3, bg = nil })
 
         hl.set('MiniPickNormal', { bg = colors.bg })
         hl.set('MiniPickBorder', { fg = colors.bg4 })
         hl.set('MiniPickBorderBusy', { fg = colors.bg4 })
       end,
     },
-  },
-  styles = {
-    comments = { italic = false },
   },
 })
 
