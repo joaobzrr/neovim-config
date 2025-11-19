@@ -23,8 +23,8 @@ require('mellifluous').setup({
                 hl.set('Pmenu', { fg = colors.fg, bg = colors.bg })
                 hl.set('PmenuSel', { bg = colors.bg2 })
                 hl.set('PmenuBorder', { fg = colors.bg4 })
-                hl.set('StatusLine', { bg = nil })
-                hl.set('StatusLineNC', { fg = colors.fg3, bg = nil })
+                hl.set('StatusLine', { bg = colors.bg3 })
+                hl.set('StatusLineNC', { fg = colors.fg3, bg = colors.bg3 })
 
                 hl.set('MiniPickNormal', { bg = colors.bg })
                 hl.set('MiniPickBorder', { fg = colors.bg4 })
