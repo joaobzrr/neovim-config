@@ -21,7 +21,9 @@ local function win_config()
 end
 
 require('mini.pick').setup({
-    window = { config = win_config }
+    window = {
+        config = win_config
+    }
 })
 
 local function truncate_path(path, max_width)

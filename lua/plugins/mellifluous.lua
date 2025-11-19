@@ -31,3 +31,9 @@ require('mellifluous').setup({
 })
 
 vim.cmd.colorscheme('mellifluous')
+
+vim.api.nvim_set_hl(0, 'DiffviewDiffAdd', { bg = '#1d221d' })       -- Added line
+vim.api.nvim_set_hl(0, 'DiffviewDiffTextGreen', { bg = '#173619' }) -- Added text
+vim.api.nvim_set_hl(0, 'DiffviewDiffDelete', { bg = '#231b1a' })    -- Deleted line
+vim.api.nvim_set_hl(0, 'DiffviewDiffTextRed', { bg = '#390e0e' })   -- Deleted text
+vim.api.nvim_set_hl(0, 'DiffDelete', { fg = '#2b2b2b' })            -- Filler color
