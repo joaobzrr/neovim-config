@@ -1,11 +1,11 @@
 -- Save and reload config
 vim.keymap.set('n', '<leader>o', function()
-  local name = vim.api.nvim_buf_get_name(0)
-  if name:sub(-4) == ".lua" then
-    vim.cmd("update | source %")
-  else
-    vim.notify("Not a Lua file", vim.log.levels.WARN)
-  end
+    local name = vim.api.nvim_buf_get_name(0)
+    if name:sub(-4) == ".lua" then
+        vim.cmd("update | source %")
+    else
+        vim.notify("Not a Lua file", vim.log.levels.WARN)
+    end
 end)
 
 -- Basic editing
@@ -51,14 +51,14 @@ vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format) -- Format buffer
 
 -- Toggle quickfix window
 vim.keymap.set('n', '<leader>qf', function()
-  local windows = vim.fn.getwininfo()
-  for _, win in pairs(windows) do
-    if win.quickfix == 1 then
-      vim.cmd.cclose()
-      return
+    local windows = vim.fn.getwininfo()
+    for _, win in pairs(windows) do
+        if win.quickfix == 1 then
+            vim.cmd.cclose()
+            return
+        end
     end
-  end
-  vim.cmd.copen()
+    vim.cmd.copen()
 end)
 
 -- Oil
