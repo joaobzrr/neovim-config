@@ -18,7 +18,11 @@ require('mellifluous').setup({
     highlight_overrides = {
       dark = function(hl, colors)
         hl.set('Keyword', { fg = colors.red })
-
+        hl.set('NormalFloat', { bg = colors.bg })
+        hl.set('FloatBorder', { fg = colors.bg4 })
+        hl.set('Pmenu', { fg = colors.fg, bg = colors.bg })
+        hl.set('PmenuSel', { bg = colors.bg2 })
+        hl.set('PmenuBorder', { fg = colors.bg4 })
         hl.set('StatusLine', { bg = nil })
         hl.set('StatusLineNC', { fg = colors.fg3, bg = nil })
 

@@ -3,47 +3,48 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Basics
-vim.opt.number = true         -- Absolute line numbers
-vim.opt.relativenumber = true -- Relative numbers for motion
-vim.opt.cursorline = true     -- Highlight current line
-vim.opt.signcolumn = 'yes'    -- Prevent text shifting when signs appear
-vim.opt.scrolloff = 10        -- Keep 10 lines of padding when scrolling
-vim.opt.mouse = 'a'           -- Enable mouse in all modes
-vim.opt.showmode = false      -- Mode shown by statusline instead
-vim.opt.winborder = 'rounded' -- Rounded floating window borders
+vim.o.number = true         -- Absolute line numbers
+vim.o.relativenumber = true -- Relative numbers for motion
+vim.o.cursorline = true     -- Highlight current line
+vim.o.signcolumn = 'yes'    -- Prevent text shifting when signs appear
+vim.o.scrolloff = 10        -- Keep 10 lines of padding when scrolling
+vim.o.mouse = 'a'           -- Enable mouse in all modes
+vim.o.showmode = false      -- Mode shown by statusline instead
+vim.o.winborder = 'rounded' -- Rounded floating window borders
 
 -- Indentation
-vim.opt.breakindent = true -- Preserve indent on wrapped lines
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
-vim.opt.expandtab = true
-vim.opt.cinoptions = 'l1' -- Small tweak for C indentation rules
+vim.o.breakindent = true -- Preserve indent on wrapped lines
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+vim.o.expandtab = true
+vim.o.cinoptions = 'l1' -- Small tweak for C indentation rules
 
 -- Search behavior
-vim.opt.ignorecase = true
-vim.opt.smartcase = true -- Case-sensitive only when uppercase used
+vim.o.ignorecase = true
+vim.o.smartcase = true -- Case-sensitive only when uppercase used
 
 -- Whitespace display
-vim.opt.list = true
-vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
-vim.opt.fillchars = vim.opt.fillchars + 'diff:╱' -- Character used in diff filler lines
+vim.o.list = true
+--vim.o.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
+--vim.o.fillchars = vim.o.fillchars + 'diff:╱' -- Character used in diff filler lines
 
 -- Window behavior
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+vim.o.splitright = true
+vim.o.splitbelow = true
 
 -- Persistence and system integration
-vim.opt.clipboard = 'unnamedplus'
-vim.opt.undofile = true
-vim.opt.inccommand = 'split' -- Live :substitute preview
+vim.o.clipboard = 'unnamedplus'
+vim.o.undofile = true
+vim.o.inccommand = 'split' -- Live :substitute preview
 
 -- Timings
-vim.opt.updatetime = 100
-vim.opt.timeoutlen = 300
+vim.o.updatetime = 100
+vim.o.timeoutlen = 300
 
 -- GUI font
-vim.opt.guifont = 'JetBrainsMonoNL NFM:h10'
+vim.o.guifont = 'JetBrainsMonoNL NFM:h10'
 
  -- Completion options
-vim.opt.completeopt = "menuone,noinsert,noselect" -- completion options
+vim.o.completeopt = "menu,menuone,noinsert,noselect,popup"
+vim.o.pumborder = "rounded"
