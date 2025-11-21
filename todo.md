@@ -1,0 +1,4 @@
+- [ ] Add grep picker for neovim config files.
+- [ ] Fix mini.pick send-to-quickfix.
+- [ ] Make terminal autocomplete environment variables.
+- [x] Highlight patterns in comments.

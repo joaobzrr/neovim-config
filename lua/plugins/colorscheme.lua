@@ -29,15 +29,18 @@ require('mellifluous').setup({
                 hl.set('MiniPickNormal', { bg = colors.bg })
                 hl.set('MiniPickBorder', { fg = colors.bg4 })
                 hl.set('MiniPickBorderBusy', { fg = colors.bg4 })
+
+                hl.set('DiffviewDiffAdd',       { bg = '#1d221d' })       -- Added line
+                hl.set('DiffviewDiffTextGreen', { bg = '#173619' }) -- Added text
+                hl.set('DiffviewDiffDelete', { bg = '#231b1a' })    -- Deleted line
+                hl.set('DiffviewDiffTextRed', { bg = '#390e0e' })   -- Deleted text
+                hl.set('DiffDelete', { fg = '#2b2b2b' })            -- Filler color
+
+                hl.set('AnnotationTODO', { fg = '#d86264' })
+                hl.set('AnnotationNOTE', { fg = '#bf6ab4' })
             end,
         },
     },
 })
 
 vim.cmd.colorscheme('mellifluous')
-
-vim.api.nvim_set_hl(0, 'DiffviewDiffAdd', { bg = '#1d221d' })       -- Added line
-vim.api.nvim_set_hl(0, 'DiffviewDiffTextGreen', { bg = '#173619' }) -- Added text
-vim.api.nvim_set_hl(0, 'DiffviewDiffDelete', { bg = '#231b1a' })    -- Deleted line
-vim.api.nvim_set_hl(0, 'DiffviewDiffTextRed', { bg = '#390e0e' })   -- Deleted text
-vim.api.nvim_set_hl(0, 'DiffDelete', { fg = '#2b2b2b' })            -- Filler color
