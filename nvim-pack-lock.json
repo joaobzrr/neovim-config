@@ -4,6 +4,10 @@
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "src": "https://github.com/sindrets/diffview.nvim"
     },
+    "fzf-lua": {
+      "rev": "3b4a5d13adeb33f387d744b6ed777bb5401cba94",
+      "src": "https://github.com/ibhagwan/fzf-lua"
+    },
     "jai.vim": {
       "rev": "0cd34533dacc9f048adce5e9d02a04309e992a47",
       "src": "https://github.com/rluba/jai.vim"

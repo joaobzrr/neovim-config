@@ -1,3 +1,0 @@
-- [ ] Add grep picker for neovim config files.
-- [ ] Fix mini.pick send-to-quickfix.
-- [x] Highlight patterns in comments.
