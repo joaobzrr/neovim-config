@@ -50,7 +50,7 @@ local function update_docs(completed_item)
     local client = vim.lsp.get_client_by_id(client_id)
     if not client then return end
 
-    client.request(
+    client:request(
         "completionItem/resolve",
         lsp_item,
         function(err, res)
