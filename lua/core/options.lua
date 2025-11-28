@@ -27,7 +27,7 @@ vim.opt.smartcase = true -- Case-sensitive only when uppercase used
 -- Whitespace display
 vim.opt.list = true
 vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
-vim.opt.fillchars = vim.opt.fillchars + 'diff:╱' -- Character used in diff filler lines
+vim.opt.fillchars:append { diff = "/" }
 
 -- Window behavior
 vim.opt.splitright = true
