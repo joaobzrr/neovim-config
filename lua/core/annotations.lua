@@ -33,10 +33,6 @@ local function is_comment(bufnr, row, col)
     return id > 0 and vim.fn.synIDattr(id, "name"):match("Comment") ~= nil
 end
 
----Scan and highlight a line range.
----@param bufnr integer
----@param start integer
----@param finish integer
 local function scan(bufnr, start, finish)
     if not vim.api.nvim_buf_is_valid(bufnr) then return end
 
@@ -52,13 +48,34 @@ local function scan(bufnr, start, finish)
         local row = start + i - 1
         local upper = line:upper()
 
-        for _, pat in ipairs(config.keywords) do
-            local s, e = upper:find(pat, 1, true)
+        for _, key in ipairs(config.keywords) do
+            -- Must be KEYWORD:
+            local target = key .. ":"
+            local s, e = upper:find(target, 1, true)
             if s and is_comment(bufnr, row, s - 1) then
-                vim.api.nvim_buf_set_extmark(bufnr, ns, row, s - 1, {
-                    end_col = e,
-                    hl_group = "Annotation" .. pat,
+                local colon_col = e - 1        -- index of ':'
+                local before = s - 2           -- possible preceding space
+
+                -- background highlight range:
+                -- include preceding space *iff* it exists and is a space
+                local start_col = s - 1
+                if before >= 0 and line:sub(before + 1, before + 1) == " " then
+                    start_col = before
+                end
+
+                -- highlight keyword + colon background
+                vim.api.nvim_buf_set_extmark(bufnr, ns, row, start_col, {
+                    end_col = e,                       -- up to colon
+                    hl_group = "Annotation" .. key,    -- user-colorscheme-defined
                     priority = 100,
+                })
+
+                -- overlay colon with a single space (visually hides it)
+                vim.api.nvim_buf_set_extmark(bufnr, ns, row, colon_col, {
+                    virt_text = { { " " } },
+                    virt_text_pos = "overlay",
+                    hl_mode = "combine",
+                    priority = 200,
                 })
             end
         end
@@ -72,7 +89,9 @@ local function schedule()
     timer = vim.uv.new_timer()
     timer:start(config.delay, 0, vim.schedule_wrap(function()
         local buf = vim.api.nvim_get_current_buf()
-        if vim.bo[buf].buftype ~= "" then return end
+        if not vim.api.nvim_buf_is_valid(buf) or vim.bo[buf].buftype ~= "" then
+            return
+        end
         scan(buf, vim.fn.line("w0") - 1, vim.fn.line("w$") - 1)
     end))
 end
@@ -81,9 +100,8 @@ local function init()
     if enabled then return end
     enabled = true
 
-    -- Create empty hl groups that users can style elsewhere
-    for _, pat in ipairs(config.keywords) do
-        vim.api.nvim_set_hl(0, "Annotation" .. pat, {})
+    for _, key in ipairs(config.keywords) do
+        vim.api.nvim_set_hl(0, "Annotation" .. key, {})
     end
 
     local grp = vim.api.nvim_create_augroup("Annotation", { clear = true })
@@ -97,32 +115,17 @@ local function init()
         end,
     })
 
+    -- Reapply highlights on changes (debounced)
     vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
         group = grp,
-        callback = function(args)
-            local info = vim.fn.getchangelist()
-            if not info or not info[2] then return end
-
-            local start = info[2] - 1
-            local finish = start
-
-            for i = 2, #info do
-                if info[i] > 0 then
-                    finish = math.max(finish, info[i] - 1)
-                end
-            end
-
-            vim.schedule(function()
-                scan(args.buf, start, finish)
-            end)
-        end,
+        callback = schedule,
     })
 
+    -- Reapply when scrolling
     vim.api.nvim_create_autocmd("WinScrolled", {
         group = grp,
         callback = schedule,
     })
 end
 
--- Auto-run on require
 init()
