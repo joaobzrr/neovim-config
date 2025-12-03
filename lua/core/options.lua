@@ -48,3 +48,7 @@ vim.opt.guifont = "JetBrainsMonoNL NFM:h10"
 -- Completion options
 vim.opt.completeopt = "menu,menuone,noinsert,noselect,popup"
 vim.opt.pumborder = "rounded"
+
+if vim.g.neovide then
+    vim.g.neovide_floating_shadow = false
+end
