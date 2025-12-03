@@ -69,6 +69,7 @@ end)
 vim.keymap.set("n", "-", "<CMD>Oil<CR>")
 vim.keymap.set("n", "<leader>-", require("oil").toggle_float)
 
--- Diffview
-vim.keymap.set("n", "<leader>dv", ":DiffviewOpen<CR>")
-vim.keymap.set("n", "<leader>dc", ":DiffviewClose<CR>")
+vim.keymap.set('n', '<leader>r', function()
+    vim.cmd('PackageReload emerald')
+    require('emerald').set_colorset('artichoke')
+end)

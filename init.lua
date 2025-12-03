@@ -10,7 +10,7 @@ require("plugins.picker")
 require("plugins.oil")
 
 require("plugins.emerald")
-require("plugins.vscode_diff")
+require("plugins.diff")
 require("plugins.jai")
 
 require("core.keymaps")

@@ -1,5 +1,5 @@
 vim.cmd("packadd emerald")
 
-require("emerald").setup({ colorset = "verdant_light" })
+require("emerald").setup({ colorset = "artichoke" })
 
 vim.cmd.colorscheme("emerald")

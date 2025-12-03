@@ -6,16 +6,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- Add highlighting for Jai function calls
---vim.api.nvim_create_autocmd("FileType", {
---	pattern = "jai",
---	callback = function()
---		print("HERE WE ARE!")
---
---		-- Define new syntax group for function calls
---		vim.cmd([[
---      syntax match jaiFunctionCall "\v<\h\w*>\ze\(" display
---      highlight default link jaiFunctionCall Function
---    ]])
---	end,
---})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "jai",
+  callback = function()
+    vim.cmd([[
+      " Function call highlighting
+      syntax match jaiFunctionCall "\v(\h\w+\.)*\h\w+\ze\(" display
+      highlight default link jaiFunctionCall Function
+    ]])
+  end,
+})
