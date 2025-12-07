@@ -45,8 +45,11 @@ vim.opt.timeoutlen = 300
 -- GUI font
 vim.opt.guifont = "JetBrainsMonoNL NFM:h10"
 
--- Completion options
+-- Completion
 vim.opt.completeopt = "menu,menuone,noinsert,noselect,popup"
+
+-- Pum window
+vim.opt.pumheight = 15
 vim.opt.pumborder = "rounded"
 
 -- Neovide

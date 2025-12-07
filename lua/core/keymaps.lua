@@ -69,7 +69,8 @@ end)
 vim.keymap.set("n", "-", "<CMD>Oil<CR>")
 vim.keymap.set("n", "<leader>-", require("oil").toggle_float)
 
-vim.keymap.set('n', '<leader>r', function()
-    vim.cmd('PackageReload emerald')
-    require('emerald').set_colorset('artichoke')
+-- TODO: Get rid of this
+vim.keymap.set("n", "<leader>r", function()
+	vim.cmd("PackageReload emerald")
+	require("emerald").set_colorset("artichoke")
 end)

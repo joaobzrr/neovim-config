@@ -10,11 +10,13 @@ local function show_docs(doc, selected)
     local value = type(doc) == "string" and doc or doc.value
     local filetype = (doc.kind == "markdown") and "markdown" or ""
 
+
     -- NOTE: nvim__complete_set is internal and *may change in future*.
     -- If it ever changes, completion popup APIs will need updating here.
     local preview = vim.api.nvim__complete_set(selected, { info = value })
     if preview.bufnr then
         vim.bo[preview.bufnr].filetype = filetype
+
         vim.api.nvim_win_set_config(preview.winid, { border = 'rounded' })
     end
 end
