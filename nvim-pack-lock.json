@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "conjure": {
+      "rev": "67705566318002cc0a88b075f695518a43aa0ca7",
+      "src": "https://github.com/Olical/conjure"
+    },
     "diffview.nvim": {
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "src": "https://github.com/sindrets/diffview.nvim"
