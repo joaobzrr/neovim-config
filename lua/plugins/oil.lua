@@ -1,14 +1,14 @@
 return {
-    'stevearc/oil.nvim',
+    "stevearc/oil.nvim",
     dependencies = {
-        'nvim-mini/mini.icons',
+        "nvim-mini/mini.icons",
     },
-    config = function()
-        require('mini.icons').setup()
-        require('oil').setup({
+    config = function ()
+        require("mini.icons").setup()
+        require("oil").setup({
             view_options = {
                 show_hidden = true,
-                natural_order = 'fast',
+                natural_order = "fast",
             },
         })
     end,

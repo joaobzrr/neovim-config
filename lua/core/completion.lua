@@ -2,15 +2,15 @@ local function has_docs(doc)
     if not doc then
         return false
     end
-    if type(doc) == 'string' then
-        return doc ~= ''
+    if type(doc) == "string" then
+        return doc ~= ""
     end
-    return doc.value and doc.value ~= ''
+    return doc.value and doc.value ~= ""
 end
 
 local function show_docs(doc, selected)
-    local value = type(doc) == 'string' and doc or doc.value
-    local filetype = (doc.kind == 'markdown') and 'markdown' or ''
+    local value = type(doc) == "string" and doc or doc.value
+    local filetype = (doc.kind == "markdown") and "markdown" or ""
 
     -- NOTE: nvim__complete_set is internal and *may change in future*.
     -- If it ever changes, completion popup APIs will need updating here.
@@ -18,7 +18,7 @@ local function show_docs(doc, selected)
     if preview.bufnr then
         vim.bo[preview.bufnr].filetype = filetype
 
-        vim.api.nvim_win_set_config(preview.winid, { border = 'rounded' })
+        vim.api.nvim_win_set_config(preview.winid, { border = "rounded" })
     end
 end
 
@@ -40,7 +40,7 @@ local function update_docs(completed_item)
 
     -- If docs already present, show immediately.
     if has_docs(lsp_item.documentation) then
-        local selected = vim.fn.complete_info({ 'selected' }).selected
+        local selected = vim.fn.complete_info({ "selected" }).selected
         show_docs(lsp_item.documentation, selected)
         return
     end
@@ -57,20 +57,20 @@ local function update_docs(completed_item)
         return
     end
 
-    client:request('completionItem/resolve', lsp_item, function(err, res)
+    client:request("completionItem/resolve", lsp_item, function (err, res)
         if err or not res or not has_docs(res.documentation) then
             return
         end
-        local sel = vim.fn.complete_info({ 'selected' }).selected
+        local sel = vim.fn.complete_info({ "selected" }).selected
         show_docs(res.documentation, sel)
     end)
 end
 
 local function enable_lsp_doc_popup(bufnr)
-    vim.api.nvim_create_autocmd('CompleteChanged', {
-        group = vim.api.nvim_create_augroup('LspDocPopup' .. bufnr, {}),
+    vim.api.nvim_create_autocmd("CompleteChanged", {
+        group = vim.api.nvim_create_augroup("LspDocPopup" .. bufnr, {}),
         buffer = bufnr,
-        callback = function()
+        callback = function ()
             if vim.fn.pumvisible() == 0 then
                 return
             end
@@ -79,15 +79,15 @@ local function enable_lsp_doc_popup(bufnr)
     })
 end
 
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('my.lsp', {}),
-    callback = function(e)
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("my.lsp", {}),
+    callback = function (e)
         local client = vim.lsp.get_client_by_id(e.data.client_id)
         if not client then
             return
         end
 
-        if client:supports_method('textDocument/completion') then
+        if client:supports_method("textDocument/completion") then
             vim.lsp.completion.enable(true, client.id, e.buf, { autotrigger = true })
             enable_lsp_doc_popup(e.buf)
         end
