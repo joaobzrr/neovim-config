@@ -1,22 +1,32 @@
-vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter" })
+return {
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ':TSUpdate',
+    config = function()
+        local filetypes = {
+            'c',
+            'cpp',
+            'go',
+            'lua',
+            'luadoc',
+            'bash',
+            'html',
+            'markdown',
+            'vim',
+            'vimdoc',
+            'diff',
+            'css',
+            'clojure',
+        }
 
-require("nvim-treesitter.configs").setup({
-	highlight = { enable = true },
-	auto_install = true,
-	ensure_installed = {
-		"c",
-		"cpp",
-		"go",
-		"lua",
-		"luadoc",
-		"bash",
-		"html",
-		"markdown",
-		"vim",
-		"vimdoc",
-		"diff",
-        "html",
-        "css",
-		"clojure",
-	},
-})
+        local treesitter = require('nvim-treesitter')
+        treesitter.install(filetypes)
+
+        vim.api.nvim_create_autocmd('FileType', {
+            pattern = filetypes,
+            callback = function()
+                vim.treesitter.start()
+            end,
+        })
+    end,
+}

@@ -1,13 +1,15 @@
-vim.pack.add({
-    'https://github.com/stevearc/oil.nvim',
-    'https://github.com/nvim-mini/mini.icons'
-})
-
-require('mini.icons').setup()
-
-require('oil').setup({
-    view_options = {
-        show_hidden = true,
-        natural_order = "fast",
-    }
-})
+return {
+    'stevearc/oil.nvim',
+    dependencies = {
+        'nvim-mini/mini.icons',
+    },
+    config = function()
+        require('mini.icons').setup()
+        require('oil').setup({
+            view_options = {
+                show_hidden = true,
+                natural_order = 'fast',
+            },
+        })
+    end,
+}
