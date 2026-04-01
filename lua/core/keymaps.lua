@@ -65,12 +65,23 @@ vim.keymap.set("n", "<leader>qf", function ()
     vim.cmd.copen()
 end)
 
+-- LSP hover
+vim.keymap.set("n", "K", function() vim.lsp.buf.hover({
+    border = "rounded",
+    max_width = 80,
+    max_height = 20,
+    focusable = true,
+}) end, { silent = true })
+
+-- Run make
+--vim.keymap.set("n", "<leader>m", ":make<CR><CR>:copen<CR>")
+
 -- Oil
-vim.keymap.set("n", "-", "<CMD>Oil<CR>")
-vim.keymap.set("n", "<leader>-", require("oil").toggle_float)
+--vim.keymap.set("n", "-", "<CMD>Oil<CR>")
+--vim.keymap.set("n", "<leader>-", require("oil").toggle_float)
 
 -- TODO: Get rid of this
-vim.keymap.set("n", "<leader>r", function ()
-    vim.cmd("PackageReload emerald")
-    require("emerald").set_colorset("artichoke")
-end)
+--vim.keymap.set("n", "<leader>r", function ()
+--    vim.cmd("PackageReload emerald")
+--    require("emerald").set_colorset("artichoke")
+--end)

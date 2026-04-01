@@ -1,7 +1,3 @@
--- Leader keys
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 -- Basics
 vim.opt.number = true         -- Absolute line numbers
 vim.opt.relativenumber = true -- Relative numbers for motion
@@ -37,6 +33,8 @@ vim.opt.splitbelow = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.undofile = true
 vim.opt.inccommand = "split" -- Live :substitute preview
+
+vim.opt.exrc = true
 
 -- Timings
 vim.opt.updatetime = 100
