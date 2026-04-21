@@ -54,3 +54,24 @@ vim.opt.guifont = "JetBrainsMonoNL NFM:h10"
 if vim.g.neovide then
     vim.g.neovide_floating_shadow = false
 end
+
+-- UI2
+require('vim._core.ui2').enable({
+    enable = true,
+    msg = {
+        targets = 'cmd',
+        cmd = {
+            height = 0.5
+        },
+        dialog = {
+            height = 0.5
+        },
+        msg = {
+            height = 0.5,
+            timeout = 4000,
+        },
+        pager = {
+            height = 1,
+        },
+    },
+})

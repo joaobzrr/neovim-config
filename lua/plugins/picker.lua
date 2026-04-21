@@ -49,6 +49,10 @@ end
 -- Help
 vim.keymap.set("n", "<leader>h", ":Pick help<CR>")
 
+-- TODO:
+-- 1) remove period at the beginning of paths
+-- 2) color icons correctly
+--
 -- Project files
 vim.keymap.set("n", "<leader>f", function()
     local paths = extra_paths()
@@ -68,6 +72,10 @@ vim.keymap.set("n", "<leader>f", function()
     })
 end)
 
+-- TODO:
+-- 1) remove period at the beginning of paths
+-- 2) color icons correctly
+--
 -- Project grep live
 vim.keymap.set("n", "<leader>g", function()
     local paths = extra_paths()
