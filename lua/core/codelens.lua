@@ -11,21 +11,21 @@ local function request_codelenses(bufnr)
         timers[bufnr] = nil
     end
 
-    timers[bufnr] = vim.defer_fn(function()
+    timers[bufnr] = vim.defer_fn(function ()
         timers[bufnr] = nil
 
         if not vim.api.nvim_buf_is_valid(bufnr) then
             return
         end
 
-        local clients = vim.lsp.get_clients({ bufnr = bufnr, name = "notes-ls" })
+        local clients = vim.lsp.get_clients({ bufnr = bufnr, name = "jot_ls" })
         if #clients == 0 then
             return
         end
 
         local params = { textDocument = vim.lsp.util.make_text_document_params(bufnr) }
 
-        vim.lsp.buf_request_all(bufnr, "textDocument/codeLens", params, function(results, ctx)
+        vim.lsp.buf_request_all(bufnr, "textDocument/codeLens", params, function (results, ctx)
             if not vim.api.nvim_buf_is_valid(bufnr) then
                 return
             end
@@ -102,7 +102,7 @@ end
 
 function M.setup()
     vim.api.nvim_set_decoration_provider(codelens_namespace, {
-        on_win = function(_, _, bufnr, toprow, botrow)
+        on_win = function (_, _, bufnr, toprow, botrow)
             if buffer_state[bufnr] then
                 render_visible(bufnr, toprow, botrow)
             end
@@ -131,15 +131,15 @@ function M.attach(bufnr, client_id)
         {
             buffer = bufnr,
             group = vim.api.nvim_create_augroup("my.codelens." .. bufnr, {}),
-            callback = function()
+            callback = function ()
                 request_codelenses(bufnr)
             end,
         })
 
-    client.handlers["workspace/codeLens/refresh"] = function()
+    client.handlers["workspace/codeLens/refresh"] = function ()
         local client_obj = vim.lsp.get_client_by_id(client_id)
         if not client_obj then return nil end
-        
+
         for bnr, _ in pairs(client_obj.attached_buffers) do
             if vim.api.nvim_buf_is_valid(bnr) and buffer_state[bnr] then
                 request_codelenses(bnr)

@@ -45,6 +45,7 @@ vim.opt.completeopt = "menu,menuone,noinsert,noselect,popup"
 
 -- Pum window
 vim.opt.pumheight = 15
+vim.opt.pummaxwidth = 100
 vim.opt.pumborder = "rounded"
 
 -- GUI font

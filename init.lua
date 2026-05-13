@@ -14,4 +14,4 @@ require("plugins.todo-comments")
 require('plugins.jai')
 require("plugins.gunmetal")
 
-vim.lsp.enable({ "lua_ls", "notes-ls" })
+vim.lsp.enable({ "lua_ls", "jot_ls" })
