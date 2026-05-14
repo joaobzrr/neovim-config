@@ -9,19 +9,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function (ev)
         local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
 
-        if client:supports_method("textDocument/completion") then
-            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-
-            -- Retrigger completion after backspace
-            vim.keymap.set("i", "<BS>", function ()
-                local key = vim.api.nvim_replace_termcodes("<BS>", true, false, true)
-                vim.api.nvim_feedkeys(key, "n", false)
-                vim.schedule(function ()
-                    vim.lsp.completion.get()
-                end)
-            end, { buffer = ev.buf })
-        end
-
         if client.name == "jot_ls" and client.server_capabilities.codeLensProvider then
             codelens.attach(ev.buf, client.id)
         end

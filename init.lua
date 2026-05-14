@@ -13,5 +13,6 @@ require("plugins.diff")
 require("plugins.todo-comments")
 require('plugins.jai')
 require("plugins.gunmetal")
+require("plugins.blink")
 
 vim.lsp.enable({ "lua_ls", "jot_ls" })
